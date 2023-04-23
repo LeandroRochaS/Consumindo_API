@@ -3,8 +3,11 @@ import { Nav } from "./styled";
 import { FaHome, FaSignInAlt, FaUserAlt } from "react-icons/fa";
 import { Link, Router } from "react-router-dom";
 import history from "../../services/history";
+import { useSelector } from "react-redux";
 
 export default function Header() {
+  const botaoClicado = useSelector((state) => state.botaoClicado);
+
   return (
     <Router history={history}>
       <Nav>
@@ -17,6 +20,7 @@ export default function Header() {
         <Link to="/adkadk">
           <FaSignInAlt size="24px" />
         </Link>
+        {botaoClicado ? "clicado" : "Não clicado"}
       </Nav>
     </Router>
   );

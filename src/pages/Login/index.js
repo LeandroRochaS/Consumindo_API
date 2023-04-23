@@ -2,9 +2,10 @@ import React from "react";
 import { Title, Paragrafo } from "./style.js";
 import GlobalStyles, { Container } from "../../styles/GlobalStyles";
 import { toast, ToastContainer } from "react-toastify";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
-  // eslint-disable-next-line no-unused-vars
+  //  eslint-disable-next-line no-unused-vars
   let toastId = null; // Variável para armazenar o id do toast
 
   // Função para mostrar a mensagem de sucesso com id personalizado
@@ -14,6 +15,16 @@ export default function Login() {
       toastId: "success-toast", // Id personalizado para mensagens de sucesso
     });
   };
+
+  function handleClick(e) {
+    e.preventDefault();
+
+    dispatch({
+      type: "BOTAO_CLICADO",
+    });
+  }
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -33,7 +44,10 @@ export default function Login() {
           </p>
         </Paragrafo>
         <a href=""> Oie </a>
-        <button type="button"> Send </button>
+        <button type="button" onClick={handleClick}>
+          {" "}
+          Send{" "}
+        </button>
         <GlobalStyles />
       </Container>
     </>
