@@ -3,6 +3,7 @@ import { Title, Paragrafo } from "./style.js";
 import GlobalStyles, { Container } from "../../styles/GlobalStyles";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
+import * as exampleActions from "../../store/modules/exemple/actions.js";
 
 export default function Login() {
   //  eslint-disable-next-line no-unused-vars
@@ -19,9 +20,7 @@ export default function Login() {
   function handleClick(e) {
     e.preventDefault();
 
-    dispatch({
-      type: "BOTAO_CLICADO",
-    });
+    dispatch(exampleActions.clicaBotaoRequest());
   }
 
   const dispatch = useDispatch();

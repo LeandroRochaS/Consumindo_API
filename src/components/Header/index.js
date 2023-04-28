@@ -6,7 +6,7 @@ import history from "../../services/history";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const botaoClicado = useSelector((state) => state.botaoClicado);
+  const botaoClicado = useSelector((state) => state.example.botaoClicado);
 
   return (
     <Router history={history}>
