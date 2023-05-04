@@ -11,6 +11,7 @@ export function clicaBotaoSuccess() {
     type: types.BOTAO_CLICADO_SUCCESS,
   };
 }
+
 export function clicaBotaoFailure() {
   return {
     type: types.BOTAO_CLICADO_FAILURE,

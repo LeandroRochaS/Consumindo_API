@@ -32,5 +32,6 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/state-in-constructor": 0,
     "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "react/prop-types": [0],
   },
 };

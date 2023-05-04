@@ -4,11 +4,10 @@ import * as actions from "./actions";
 import * as types from "../types";
 
 const requisicao = () =>
-  // eslint-disable-next-line no-unused-vars
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     setTimeout(() => {
       resolve();
-    }, 1000);
+    }, 600);
   });
 
 function* exampleRequest() {
@@ -16,7 +15,7 @@ function* exampleRequest() {
     yield call(requisicao);
     yield put(actions.clicaBotaoSuccess());
   } catch {
-    toast.error("Deu error.");
+    toast.error("Deu erro.");
     yield put(actions.clicaBotaoFailure());
   }
 }

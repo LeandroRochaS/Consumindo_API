@@ -11,7 +11,7 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: sans-serif;
+    font-family: monospace;
     background: ${colors.primaryDarkColor};
   }
 
@@ -39,9 +39,10 @@ export default createGlobalStyle`
 `;
 
 export const Container = styled.section`
-  max-width: 360px;
+  max-width: 500px;
   background: white;
   margin: 30px auto;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;

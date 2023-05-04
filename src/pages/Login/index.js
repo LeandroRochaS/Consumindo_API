@@ -1,54 +1,68 @@
 import React from "react";
-import { Title, Paragrafo } from "./style.js";
-import GlobalStyles, { Container } from "../../styles/GlobalStyles";
 import { toast, ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
-import * as exampleActions from "../../store/modules/exemple/actions.js";
+import { isEmail } from "validator";
+import { useDispatch, useSelector } from "react-redux";
+import { get } from "lodash";
 
-export default function Login() {
-  //  eslint-disable-next-line no-unused-vars
-  let toastId = null; // Variável para armazenar o id do toast
+import { Container } from "../../styles/GlobalStyles";
+import { Form } from "./styled";
+import * as actions from "../../store/modules/auth/actions";
+import Loading from "../../components/Loading";
 
-  // Função para mostrar a mensagem de sucesso com id personalizado
-  const showSuccessToast = () => {
-    toastId = toast.success("Success Notification !", {
-      position: toast.POSITION.TOP_RIGHT,
-      toastId: "success-toast", // Id personalizado para mensagens de sucesso
-    });
-  };
+//import Loading from "../../components/Loading";
 
-  function handleClick(e) {
-    e.preventDefault();
-
-    dispatch(exampleActions.clicaBotaoRequest());
-  }
-
+export default function Login(props) {
   const dispatch = useDispatch();
 
+  const isLoading = useSelector((state) => state.auth.isLoading);
+
+  const prevPath = get(props, "location.state.prevPath", "/");
+  //const history = get(props, "history");
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let formErrors = false;
+
+    if (!isEmail(email)) {
+      formErrors = true;
+      toast.error("E-mail inválido.");
+    }
+
+    if (password.length < 6 || password.length > 50) {
+      formErrors = true;
+      toast.error("Senha inválida");
+    }
+
+    if (formErrors) return;
+
+    dispatch(actions.loginRequest({ email, password, prevPath }));
+  };
+
   return (
-    <>
+    <Container>
+      <Loading isLoading={isLoading} />
       <ToastContainer />
-      {showSuccessToast()}
-      <Container>
-        <Title isRed={true}>
-          <p> Login </p>
-          <small>Oie</small>
-        </Title>
-        <Paragrafo>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis
-            non temporibus repellat? Atque iste aut dolores tempore. Suscipit,
-            sint dolor hic mollitia molestiae nobis. Deleniti necessitatibus
-            praesentium sed dolore magni.
-          </p>
-        </Paragrafo>
-        <a href=""> Oie </a>
-        <button type="button" onClick={handleClick}>
-          {" "}
-          Send{" "}
-        </button>
-        <GlobalStyles />
-      </Container>
-    </>
+
+      <Form onSubmit={handleSubmit}>
+        <h1>Login</h1>
+
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Seu e-mail"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Sua senha"
+        />
+        <button type="submit">Acessar</button>
+      </Form>
+    </Container>
   );
 }
